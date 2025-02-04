@@ -59,8 +59,8 @@ def setup_trainval_sets(imgs: str, coco: COCO):
 
     return dataset
 
-def setup_test_set(coco: COCO):
-    test_images_path = "dataset/test2014/"
+def setup_test_set(coco: COCO, dataset: str):
+    test_images_path = f"dataset/{dataset}2014/"
     test_image_ids = coco.getImgIds()
 
     img_id_path_pairs = []
