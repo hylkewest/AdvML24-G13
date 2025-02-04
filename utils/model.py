@@ -118,7 +118,6 @@ class DecoderLayer(Layer):
     def call(self, inputs, training=False):
         in_seq, out_seq = inputs
 
-        # Text input
         out_seq = self.self_attention(out_seq)
 
         out_seq = self.cross_attention(out_seq, in_seq)
@@ -147,8 +146,6 @@ class TokenOutput(Layer):
 
         self.bias = None
 
-    # "This reduces the initial loss from the entropy of the uniform distribution
-    # (log(vocabulary_size)) to the marginal entropy of the distribution (-p*log(p))."
     def adapt(self, ds):
         counts = collections.Counter()
 
@@ -413,6 +410,6 @@ def plot_attention_maps(image, str_tokens, attention_map):
 @tf.keras.utils.register_keras_serializable()
 def standardize(s):
     s = tf.strings.lower(s) # Lowercase
-    s = tf.strings.regex_replace(s, f'[{re.escape(string.punctuation)}]', '') # Remove puncuation
-    s = tf.strings.join(['[START]', s, '[END]'], separator=' ') # Add [START] and [END] tokens to the text
+    s = tf.strings.regex_replace(s, f'[{re.escape(string.punctuation)}]', '')
+    s = tf.strings.join(['[START]', s, '[END]'], separator=' ')
     return s
